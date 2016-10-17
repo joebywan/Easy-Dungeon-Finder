@@ -1,0 +1,6 @@
+## Interface: 70000
+## Author: Pod
+## Version: 1.0
+## Title: Easy dungeon finder
+
+EasyDungeonFinder.lua
