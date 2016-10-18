@@ -1,6 +1,8 @@
 ## Interface: 70000
 ## Author: Pod
-## Version: 1.0
-## Title: Easy dungeon finder
+## Version: 0.1
+## Title: EasyDungeonFinder
+## SavedVariables: EasyDungeonFinderDB
 
-EasyDungeonFinder.lua
+Embeds.xml
+Core.lua
