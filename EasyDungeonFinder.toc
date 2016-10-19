@@ -4,5 +4,8 @@
 ## Title: EasyDungeonFinder
 ## SavedVariables: EasyDungeonFinderDB
 
-Embeds.xml
-Core.lua
+Libs\Libs.xml
+Core\Init.lua
+Core\Options.lua
+Core\Config.lua
+Core\Core.lua
