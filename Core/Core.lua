@@ -79,13 +79,15 @@ end
 
 function E:StartLookForDungeon()
 	self:Print("Timer started.")
-	self.timer = self:ScheduleRepeatingTimer("LookForDungeon", 30)
+  self.LookingForDungeon = true
   self:LookForDungeon()
+	self:ScheduleRepeatingTimer("LookForDungeon", 30)
 end
 
 function E:StopLookForDungeon()
-	self:Print("Timer stopped.")
-	self:CancelTimer(self.timer)
+  self:Print("Timer stopped.")
+  self.LookingForDungeon = false
+	self:CancelAllTimers()
 end
 
 function E:LookForDungeon()
