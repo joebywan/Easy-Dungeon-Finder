@@ -13,6 +13,12 @@ C["dungeons"] = {
 	["Court of Stars (Mythic)"] = "Court of Stars",
 }
 
+C["vacant"] = {
+	["EITHER"] = "Either",
+	["TANK"] = "Tank",
+	["HEALER"] = "Healer",
+}
+
 C["filter"] = {
 	"+1",
 	"+2",
@@ -41,5 +47,6 @@ C["defaults"] = {
 			["dungeons"] = {},
 			["level"] = 0,
 			["ilvl"] = 0,
+			["vacant"] = {}
 		}
 }

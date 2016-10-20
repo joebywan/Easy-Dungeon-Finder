@@ -10,7 +10,6 @@ function E:CreateOptionsTable()
 	        name = "Roles",
 	        type = "group",
 	        inline = true,
-	        order = 1,
 	        args = {
 	          DAMAGER = {
 	            name = "Damage",
@@ -32,13 +31,19 @@ function E:CreateOptionsTable()
 	          }
 	        }
 	      },
+				vacant = {
+					name = 'Must have',
+					type = 'multiselect',
+					values = C['vacant'],
+					get = function(info, value) return E.db.vacant[value] end,
+					set = function(info, value, checked) E.db.vacant[value] = checked end,
+				},
 	      dungeons = {
 	        name = 'Dungeons',
 	        type = 'multiselect',
 	        values = C['dungeons'],
-	        set = function(info, value, checked) E.db.dungeons[value] = checked; end,
-	        get = function(info, value) return E.db.dungeons[value]; end,
-	        order = 2
+					get = function(info, value) return E.db.dungeons[value] end,
+	        set = function(info, value, checked) E.db.dungeons[value] = checked end,
 	      },
 	      level = {
 	        name = 'Level',
@@ -46,7 +51,6 @@ function E:CreateOptionsTable()
 	        min = 0,
 	        max = 15,
 	        step = 1,
-					order = 4,
 	        set = function(info, value) E.db.level = value; end,
 	        get = function(info) return E.db.level; end,
 	      },
@@ -63,18 +67,17 @@ function E:CreateOptionsTable()
 					name = "Controls",
 					type = "group",
 					inline = true,
+					order = -1,
 					args = {
 						startSearch = {
 							name = 'Start',
 							type = 'execute',
-							func = function() E:StartLookForDungeon() end,
-							order = 5
+							func = function() E:StartLookForDungeon() end
 						},
 						stopSearch = {
 							name = 'Stop',
 							type = 'execute',
-							func = function() E:StopLookForDungeon() end,
-							order = 6
+							func = function() E:StopLookForDungeon() end
 						}
 					}
 				}

@@ -68,13 +68,36 @@ function E:ShouldApplyToGroup(id)
 	local canBeHealer = E.db.roles.HEALER
 	local canBeDamager = E.db.roles.DAMAGER
 
-	if ( canBeHealer and not healer and tank ) then
-		return true;
-	elseif ( canBeTank and not tank and healer ) then
-		return true;
-	elseif ( canBeDamager and tank and healer and damage < 3 ) then
-		return true;
+	if ( canBeHealer and healer ) then
+		canBeHealer = false
+  end
+
+	if ( canBeTank and tank ) then
+		canBeTank = false
+  end
+
+	if ( canBeDamager and damage == 3 ) then
+		canBeDamager = false
 	end
+
+  if ( not canBeHealer and not canBeTank and not canBeDamager ) then
+    return false
+  end
+
+  if ( E.db.vacant.TANK and not tank ) then
+    return false
+  end
+
+  if ( E.db.vacant.HEALER and not healer ) then
+    return false
+  end
+
+  if ( E.db.vacant.EITHER and not ( tank or healer) ) then
+    return false
+  end
+
+  return true
+
 end
 
 function E:StartLookForDungeon()
