@@ -55,7 +55,7 @@ function E:CreateOptionsTable()
 	        get = function(info) return E.db.level; end,
 	      },
 				ilvl = {
-					name = 'iLVL (0 ignores group item level)',
+					name = 'Minimum Item Level',
 					type = 'input',
 					order = 5,
 					pattern = "[0-9]",

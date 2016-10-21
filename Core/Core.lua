@@ -26,16 +26,16 @@ function E:ShouldApplyToGroup(id)
   local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers = C_LFGList.GetSearchResultInfo(id);
   local activityName, shortName, categoryID, groupID, itemLevel, filters, minLevel, maxPlayers, displayType = C_LFGList.GetActivityInfo(activityID);
 
+	-- We dont have this dungeon checked
 	if ( E.db.dungeons[activityName] ~= true ) then
-		return false
+		return false;
 	end
 
-  local reqilvl = tonumber(E.db.ilvl)
-
-  if ( reqilvl ~= 0 and reqilvl >= iLvl ) then
+  if ( E.db.ilvl ~= 0 and tonumber(E.db.ilvl) >= iLvl ) then
     return false
   end
 
+	-- try to filter out mythic +
 	if ( E.db.level == 0 ) then
 		for i, term in ipairs(C['filter']) do
 			if string.find(name, term) then
@@ -128,7 +128,7 @@ function E:LookForDungeon()
 				local canBeTank = E.db.roles.TANK
 				local canBeHealer = E.db.roles.HEALER
 				local canBeDamager = E.db.roles.DAMAGER
-				C_LFGList.rrApplyToGroup(v, "", canBeTank, canBeHealer, canBeDamager)
+				C_LFGList.ApplyToGroup(v, "", canBeTank, canBeHealer, canBeDamager)
 			end
 		end
 	end)
