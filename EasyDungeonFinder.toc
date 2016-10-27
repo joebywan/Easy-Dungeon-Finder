@@ -1,11 +1,6 @@
-## Interface: 70000
+## Interface: 70100
 ## Author: Pod
-## Version: 0.1
+## Version: 0.2
 ## Title: EasyDungeonFinder
-## SavedVariables: EasyDungeonFinderDB
 
-Libs\Libs.xml
-Core\Init.lua
-Core\Options.lua
-Core\Config.lua
-Core\Core.lua
+EasyDungeonFinder.lua
