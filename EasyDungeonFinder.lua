@@ -108,9 +108,9 @@ function FindDungeonGroups()
 		end
 
 		-- Required roles
-		if ( requiredRole == "BOTH" and not ( healerSpotAvailable and tankSpotAvailable ) ) then
+		if ( requiredRole == "BOTH" and ( healerSpotAvailable or tankSpotAvailable ) ) then
 			apply = false
-		elseif ( requiredRole == "EITHER" and not ( healerSpotAvailable or tankSpotAvailable ) ) then
+		elseif ( requiredRole == "EITHER" and healerSpotAvailable and tankSpotAvailable ) then
 			apply = false
 		elseif ( requiredRole == "HEALER" and healerSpotAvailable ) then
 			apply = false
