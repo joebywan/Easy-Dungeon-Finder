@@ -162,7 +162,7 @@ end
 
 function OnEvent(self, event, ...)
 	local unit = ...
-	EDF = _G[EasyDungeonFinderFrame]
+	EDF = _G["EasyDungeonFinderFrame"]
 	if ( event == "PLAYER_ENTERING_WORLD" ) then
 
 	elseif ( event == "GROUP_ROSTER_CHANGED" or event == "GROUP_JOINED") then
@@ -340,7 +340,7 @@ end
 local EasyDungeonFinder = CreateFrame("Frame", "EasyDungeonFinderFrame", UIParent, "BasicFrameTemplate")
 EasyDungeonFinder:SetSize(400,650)
 EasyDungeonFinder:SetPoint("CENTER")
-EasyDungeonFinder.TitleText:SetText("Premade Finder")
+EasyDungeonFinder.TitleText:SetText("Easy Dungeon Finder")
 EasyDungeonFinder:Hide()
 EasyDungeonFinder:SetMovable(true)
 EasyDungeonFinder:EnableMouse(true)
