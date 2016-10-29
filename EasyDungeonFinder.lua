@@ -1,12 +1,12 @@
 local levels = {
-	[2] = "Two",
-	[3] = "Three",
-	[4] = "Four",
-	[5] = "Five",
-	[6] = "Six",
-	[7] = "Seven",
-	[8] = "Eight",
-	[9] = "Nine",
+	[2]  = "Two",
+	[3]  = "Three",
+	[4]  = "Four",
+	[5]  = "Five",
+	[6]  = "Six",
+	[7]  = "Seven",
+	[8]  = "Eight",
+	[9]  = "Nine",
 	[10] = "Ten",
 	[11] = "Eleven",
 	[12] = "Twelve",
@@ -30,7 +30,7 @@ local dungeons = {
 	["NELTHARIONS_LAIR"]       = "Neltharion's Lair",
 	["ASSAULT_ON_VIOLOT_HOLD"] = "Assault on Violet Hold",
 	["COURT_OF_STARS"]         = "Court of Stars",
-	["RETURN_TO_KARAZHAN"]      = "Return to Karazhan"}
+	["RETURN_TO_KARAZHAN"]     = "Return to Karazhan"}
 local timer = 0
 local interval = 30
 local lookingForGroup = false
@@ -48,6 +48,7 @@ local damage = false
 local groupTank = false
 local groupHealer = false
 local groupDamage = 0
+local roleChecks = 0
 
 SLASH_EASYDUNGEONFINDER1 = '/edf'
 function SlashCmdList.EASYDUNGEONFINDER(msg, editbox)
@@ -161,11 +162,12 @@ function FindDungeonGroups()
 end
 
 function OnEvent(self, event, ...)
+	if ( not lookingForGroup ) then
+		return
+	end
 	local unit = ...
 	EDF = _G["EasyDungeonFinderFrame"]
-	if ( event == "PLAYER_ENTERING_WORLD" ) then
-
-	elseif ( event == "GROUP_ROSTER_CHANGED" or event == "GROUP_JOINED") then
+	if ( event == "GROUP_ROSTER_CHANGED" or event == "GROUP_JOINED") then
 		print("Stopped looking for a dungeon.")
 		lookingForGroup = false
 		enabledDungeons = {}
@@ -173,17 +175,24 @@ function OnEvent(self, event, ...)
 		EDF.StopButton:SetEnabled(false)
 	elseif ( event == "LFG_ROLE_CHECK_DECLINED" ) then
 		pendingRoleCheck = false
+		timer = 0
+		FindDungeonGroups()
 	elseif ( event == "LFG_ROLE_CHECK_ROLE_CHOSEN" ) then
-		print("LFG_ROLE_CHECK_ROLE_CHOSEN"..unit)
-		pendingRoleCheck = false
+		roleChecks = roleChecks + 1
+		if ( roleChecks == GetNumGroupMembers() ) then
+			pendingRoleCheck = false
+			roleChecks = 0
+			timer = 0
+			FindDungeonGroups()
+		end
 	end
 end
 
 function OnUpdate(self, elapsed)
 	timer = timer + elapsed
 	if ( timer > interval and lookingForGroup) then
-		FindDungeonGroups()
 		timer = 0
+		FindDungeonGroups()
 	end
 end
 
@@ -240,6 +249,7 @@ function StartButton_OnClick(self)
 	EDF.StartButton:SetEnabled(false)
 	EDF.StopButton:SetEnabled(true)
 	lookingForGroup = true
+	timer = 0
   FindDungeonGroups()
 end
 
